@@ -1,17 +1,17 @@
 variable "subscription_id" {
-  default = "fe6d0698-7b7e-4f04-8518-de46be4cf0b6"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 
 variable "client_id" {
-  default = "1b4f1a37-b9b9-4073-909c-9c066f954cb6"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 
 variable "client_secret" {
-  default = "5_-Lr1GV~FdSbl1uQeIzRLVRf~VUEvwSgJ"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 
 variable "tenant_id" {
-  default = "c0df089e-5d2d-46e2-add5-ee69a11c69f0"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 
 variable "resource_group_name" {
