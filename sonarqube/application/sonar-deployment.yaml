@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarqube
+  labels:
+    app: sonarqube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarqube
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+    spec:
+      terminationGracePeriodSeconds: 15
+      initContainers:
+        - name: fix-the-volume-permission-extension
+          image: busybox
+          command:
+          - sh
+          - -c
+          - chown -R 1000:1000 /opt/sonarqube/extensions
+          securityContext:
+            privileged: true
+          volumeMounts:
+          - name: sonar-extensions
+            mountPath: /opt/sonarqube/extensions
+        - name: fix-the-volume-permission-data
+          image: busybox
+          command:
+          - sh
+          - -c
+          - chown -R 1000:1000 /opt/sonarqube/data
+          securityContext:
+            privileged: true
+          volumeMounts:
+          - name: sonar-data
+            mountPath: /opt/sonarqube/data
+      containers:
+        - name: sonarqube
+          image: sonarqube
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1024Mi
+            limits:
+              cpu: 2000m
+              memory: 2048Mi
+          ports:
+          - name: sonarqube
+            containerPort: 9000
+          env:
+          - name: SONARQUBE_JDBC_USERNAME
+            value: "foxutech@devops-tools"
+          - name: SONARQUBE_JDBC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: password
+          - name: SONARQUBE_JDBC_URL 
+            value: "jdbc:postgresql://devops-tools.postgres.database.azure.com/sonarqube"
+          volumeMounts:
+            - mountPath: /opt/sonarqube/data/
+              name: sonar-data
+            - mountPath: /opt/sonarqube/extensions/
+              name: sonar-extensions
+      initContainers:
+        - name: sonarqube-es-init
+          image: busybox:1.27.2
+          command: ['sysctl', '-w', 'vm.max_map_count=262144']
+          securityContext:
+            privileged: true
+      volumes:
+      - name: sonar-data
+        persistentVolumeClaim:
+          claimName: sonar-data
+      - name: sonar-extensions
+        persistentVolumeClaim:
+          claimName: sonar-extensions

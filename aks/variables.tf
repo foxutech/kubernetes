@@ -1,17 +1,17 @@
 variable "subscription_id" {
-  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx""
 }
 
 variable "client_id" {
-  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx""
 }
 
 variable "client_secret" {
-  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx""
 }
 
 variable "tenant_id" {
-  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  default = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx""
 }
 
 variable "resource_group_name" {
