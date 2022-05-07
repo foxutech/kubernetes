@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: argoapptest
+  name: argoapptest-app
+  namespace: {{ .Values.namespace | quote }}
+spec:
+  ports:
+    - name: "api"
+      port: {{ .Values.argoapptest.env.PORT }}
+      targetPort: {{ .Values.argoapptest.env.PORT }}
+  selector:
+    app: argoapptest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: argoapptest
+  name: argoapptest-app
+  namespace: {{ .Values.namespace | quote }}
+spec:
+  replicas: {{ .Values.argoapptest.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: argoapptest
+  template:
+    metadata:
+      annotations:
+        service: argoapptest-app-service
+      labels:
+        app: argoapptest
+    spec:
+      containers:
+      - name: argoapptest-app
+        env:
+        - name: PORT
+          value: {{ .Values.argoapptest.env.PORT | quote }}
+        image: {{ .Values.argoapptest.image | quote }}
+        imagePullPolicy: Always
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.argoapptest.env.PORT }}
+          failureThreshold: 3
+          successThreshold: 1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 2
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.argoapptest.env.PORT }}
+          failureThreshold: 3
+          successThreshold: 1
+          periodSeconds: 10
+          timeoutSeconds: 2
+      restartPolicy: Always
