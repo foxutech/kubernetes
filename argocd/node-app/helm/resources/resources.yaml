@@ -1,11 +1,9 @@
 ---
-# Source: demo-app/templates/namespace.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
   name: argoapptest
 ---
-# Source: demo-app/templates/argotest-app.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -21,7 +19,6 @@ spec:
   selector:
     app: argoapptest
 ---
-# Source: demo-app/templates/argotest-app.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,7 +27,7 @@ metadata:
   name: argoapptest-app
   namespace: "argoapptest"
 spec:
-  replicas: 2
+  replicas: 3
   strategy:
     type: Recreate
   selector:
@@ -48,7 +45,7 @@ spec:
         env:
         - name: PORT
           value: "3000"
-        image: "motoskia/argo-app-1:v1"
+        image: "motoskia/argo-app-1:v2"
         imagePullPolicy: Always
         livenessProbe:
           tcpSocket:
@@ -67,7 +64,6 @@ spec:
           timeoutSeconds: 2
       restartPolicy: Always
 ---
-# Source: demo-app/templates/ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

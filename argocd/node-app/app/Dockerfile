@@ -1,4 +1,4 @@
-FROM node:alpine3.13
+FROM node:alpine3.14
 
 ENV PORT 3000
 

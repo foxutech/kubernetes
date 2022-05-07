@@ -1,6 +1,6 @@
 apiVersion: v2
-name: demo-app
-description: A demo Helm chart
+name: argoapptest-app
+description: A argoapptest Helm chart
 
 # A chart can be either an 'application' or a 'library' chart.
 #

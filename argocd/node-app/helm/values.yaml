@@ -4,7 +4,7 @@ ingress:
   host: argocd-argoapptest.example.com
 
 argoapptest:
-  image: "motoskia/argo-app-1:v1"
+  image: "motoskia/argo-app-1:v2"
   replicaCount: 2
   env:
     PORT: 3000
