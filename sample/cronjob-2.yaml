@@ -1,0 +1,20 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            -
+              args:
+                - /bin/sh
+                - "-c"
+                - "date; echo Hello FoxuTech, from the your AKS cluster"
+              image: busybox
+              name: hello
+          restartPolicy: OnFailure
+  schedule: "*/1 * * * *"

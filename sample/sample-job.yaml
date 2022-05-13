@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+    generateName: kube-jobs-
+    name: kube-parallel-job
+    labels:
+      jobgroup: kubecron-group
+spec:
+    completions: 3
+    parallelism: 2
+    template:
+      metadata:
+         name: kube-parallel-job
+         labels:
+           jobgroup: kubecron-group
+      spec:
+        containers:
+        - name: busybox
+          image: busybox
+          command: ["echo" , "kubernetes jobs parallel"]
+        restartPolicy: OnFailure 
