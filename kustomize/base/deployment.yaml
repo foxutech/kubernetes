@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kustom-demo-app
+spec:
+  selector:
+    matchLabels:
+      app: kustom-demo-app
+  template:
+    metadata:
+      labels:
+        app: kustom-demo-app
+    spec:
+      containers:
+      - name: app
+        image: nginx:latest
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
