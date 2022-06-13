@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: kustom-demo-app
 spec:
-  replicas: 3
+  replicas: 4
   strategy:
     rollingUpdate:
       maxSurge: 1
