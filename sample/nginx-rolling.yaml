@@ -5,10 +5,10 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 7
   selector:
     matchLabels:
       app: nginx
+  replicas: 7
   minReadySeconds: 5
   strategy:
     type: RollingUpdate
