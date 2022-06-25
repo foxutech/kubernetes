@@ -25,10 +25,3 @@ spec:
         image: nginx:1.14.0
         ports:
         - containerPort: 80
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            successThreshold: 1
