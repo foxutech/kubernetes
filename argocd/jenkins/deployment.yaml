@@ -5,6 +5,9 @@ metadata:
   namespace: jenkins
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-server
   template:
     metadata:
       labels:
