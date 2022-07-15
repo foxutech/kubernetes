@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+data:
+  resource.inclusions: |
+    - apiGroups:
+      - argoproj.io/v1alpha1
+      kinds:
+      - ArgoCDExport
+kind: ConfigMap

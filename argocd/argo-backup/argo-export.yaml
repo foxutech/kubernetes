@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCDExport
+metadata:
+  name: argocd-export
+  labels:
+    example: argocd-azure
+spec:
+  argocd: export-argocd
+  schedule: "2 * * * *"
+  storage:
+    backend: azure
+    secretName: azure-backup-secret
