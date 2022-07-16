@@ -7,12 +7,14 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   policy.csv: |
-    p, role:org-admin, applications, *, *, allow
-    p, role:staging, applications, *, *, allow
-    p, role:org-admin, clusters, get, *, allow
-    p, role:org-admin, repositories, get, *, allow
-    p, role:org-admin, repositories, create, *, allow
-    p, role:org-admin, repositories, update, *, allow
-    p, role:org-admin, repositories, delete, *, allow
-    g, my-org:motoskia, role:org-admin
-    g, my-org:prabhakar, role:staging
+    p, role:devops, applications, *, *, allow
+    p, role:developers, applications, *, *, allow
+    p, role:devops, clusters, get, *, allow
+    p, role:devops, repositories, get, *, allow
+    p, role:devops, repositories, create, *, allow
+    p, role:devops, repositories, update, *, allow
+    p, role:devops, repositories, delete, *, allow
+    p, role:devops, gpgkeys, get, *, allow
+    g, motoskia, role:devops
+    g, foxutech, role:staging
+    g, dea, role:admin
