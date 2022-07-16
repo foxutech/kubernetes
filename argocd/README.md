@@ -1,5 +1,6 @@
 # ArgoCD
 Here the complete flow of argo CD and its related topics. 
+![ArgoCD Proposal](https://github.com/foxutech/kubernetes/blob/main/argocd/ArgoCD%20complete%20flow.jpg)
 ## Let’s Understand about GitOps
 - [Let’s Understand about GitOps](https://foxutech.com/lets-understand-about-gitops/)
 ## How to create Azure Kubernetes Service using Terraform
