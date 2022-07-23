@@ -9,6 +9,7 @@ data:
   policy.csv: |
     p, role:org-admin, applications, *, *, allow
     p, role:staging, applications, *, *, allow
+    p, role:staging1, applications, *, *, allow
     p, role:org-admin, clusters, get, *, allow
     p, role:org-admin, repositories, get, *, allow
     p, role:org-admin, repositories, create, *, allow
@@ -16,3 +17,4 @@ data:
     p, role:org-admin, repositories, delete, *, allow
     g, my-org:motoskia, role:org-admin
     g, my-org:prabhakar, role:staging
+    g, my-org:prabhakar1, role:staging1
