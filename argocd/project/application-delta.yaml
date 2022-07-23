@@ -1,0 +1,20 @@
+## This file restrictict the project to allow only selected destinaion
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: webapp-1
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: argocd-app-delta
+    server: https://kubernetes.default.svc
+  project: project-delta
+  source:
+    path: sample
+    repoURL: https://github.com/foxutech/kubernetes.git
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+	  - CreateNamespace=true

@@ -1,0 +1,19 @@
+## This file contains default project config of the project creation
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata: 
+ name: project-alpha
+ namespace: argocd
+spec:
+ description: Project Alpha description
+ sourceRepos:
+  - "*"
+ destinations:
+  - server: "*"
+    namespace: "*"
+ clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+ namespaceResourceWhitelist:
+  - group: "*"
+    kind: "*"  

@@ -1,0 +1,19 @@
+## This file restrictict the project to allow only selected destinaion
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata: 
+ name: project-beta
+ namespace: argocd
+spec:
+ description: Project Beta description
+ sourceRepos:
+  - "*"
+ destinations:
+  - server: "https://kubernetes.default.svc"
+    namespace: "foxutech"
+ clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+ namespaceResourceWhitelist:
+  - group: "*"
+    kind: "*"  

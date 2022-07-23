@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata: 
+ name: project-test
+ namespace: argocd
+spec:
+ description: Project delta description
+ sourceRepos:
+  - "*"
+ destinations:
+  - server: "*"
+    namespace: "*"
+ clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+ namespaceResourceWhitelist:
+  - group: "*"
+    kind: "*"  
+ roles:
+  - name: sync-roles
+    description: sync privilefes for delta project
+    policies:
+    - p, proj:project-test:sync-roles, applications, sync, project-test/*, allow
