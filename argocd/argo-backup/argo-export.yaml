@@ -7,6 +7,6 @@ metadata:
 spec:
   argocd: export-argocd
   schedule: "2 * * * *"
-  storage:
-    backend: azure
-    secretName: azure-backup-secret
+    #  storage:
+    #backend: azure
+    #secretName: azure-backup-secret
