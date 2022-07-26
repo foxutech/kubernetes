@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata: 
-  name: track-commit
+  name: track-tag
   namespace: argocd
 spec:
   destination:
