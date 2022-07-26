@@ -9,7 +9,7 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source: 
-    path: guestbook
+    path: sample
     repoURL: "https://github.com/foxutech/kubernetes.git"
     targetRevision: 961d8b5
     directory:
