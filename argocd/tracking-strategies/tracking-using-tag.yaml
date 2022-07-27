@@ -9,8 +9,8 @@ spec:
     server: "https://kubernetes.default.svc"
   project: default
   source: 
-    path: sample
-    repoURL: "https://github.com/foxutech/kubernetes.git"
+    path: k8s
+    repoURL: "https://github.com/foxutech/k8s-go-nginx.git"
     targetRevision: v1
     directory:
       recurse: true

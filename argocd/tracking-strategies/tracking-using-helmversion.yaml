@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus-qa
+  name: prometheus
   namespace: argocd    
 spec:
   destination:
@@ -12,7 +12,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 23.*
+    targetRevision: 23.3.1
     helm:
       values: |
         fullnameOverride: prometheus

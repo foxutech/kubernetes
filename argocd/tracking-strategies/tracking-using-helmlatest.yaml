@@ -1,20 +1,68 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata: 
-  name: track-helm
-  namespace: argocd
+metadata:
+  name: prometheus-dev
+  namespace: argocd    
 spec:
   destination:
-    namespace: track-commit
-    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+    server: https://kubernetes.default.svc
   project: default
-  source: 
-    chart: ingress-nginx
-    repoURL: "https://kubernetes.github.io/ingress-nginx"
-    targetRevision: '*'
-    directory:
-      recurse: true
+  source:
+    chart: kube-prometheus-stack
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    targetRevision: "*"
+    helm:
+      values: |
+        fullnameOverride: prometheus
+        prometheus:
+          prometheusSpec:
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  resources:
+                    requests:
+                      storage: 5Gi  
+        grafana:
+          grafana.ini:
+            feature_toggles:
+              enable: tempoSearch 
+          persistence:
+            type: statefulset
+            enabled: true
+            size: 5Gi
+          datasources: 
+            datasources.yaml:
+              apiVersion: 1
+              datasources:
+              - name: Loki
+                type: loki
+                uid: Loki
+                access: proxy
+                editable: false
+                url: http://loki-gateway.monitoring:80
+                jsonData:                   
+                  derivedFields:
+                    - datasourceUid: Tempo
+                      matcherRegex: "(?:traceID|traceId)(?:=|\\s)(\\w+)"
+                      name: TraceID
+                      url: "$${__value.raw}"
+              - name: Tempo 
+                type: tempo
+                uid: Tempo
+                access: proxy
+                editable: false
+                url: http://tempo-gateway.monitoring:80
+          sidecar:                              
+            dashboards:
+              enabled: true              
+              label: grafana_dashboard           
+              folder: /tmp/dashboards
+              searchNamespace: ALL                 
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
