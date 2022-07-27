@@ -11,7 +11,7 @@ spec:
   source: 
     path: k8s
     repoURL: "https://github.com/foxutech/k8s-go-nginx.git"
-    targetRevision: v1
+    targetRevision: v2
     directory:
       recurse: true
   syncPolicy:

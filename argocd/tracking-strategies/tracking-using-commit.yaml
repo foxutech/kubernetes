@@ -11,7 +11,7 @@ spec:
   source: 
     path: sample
     repoURL: "https://github.com/foxutech/kubernetes.git"
-    targetRevision: 961d8b5
+    targetRevision: 928eef7
     directory:
       recurse: true
   syncPolicy:

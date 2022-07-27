@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus-dev
+  name: helmlatest
   namespace: argocd    
 spec:
   destination:
