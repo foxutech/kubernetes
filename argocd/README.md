@@ -19,3 +19,11 @@ Here the complete flow of argo CD and its related topics.
 - [Managing Kubernetes Resources with Kustomize](https://foxutech.com/managing-kubernetes-resources-with-kustomize/)
 ## How to Deploy the Application automatically using Argo CD
 - [How to Deploy the Application automatically using Argo CD](https://foxutech.com/how-to-create-the-application-automatically-using-argo-cd/)
+## Argo CD CLI Installation and Commands
+- [Argo CD CLI Installation and Commands](https://foxutech.com/argo-cd-cli-installation-and-commands/)
+## Manage Argo CD Repositories and Applications using Argo CD CLI
+- [Manage Argo CD Repositories and Applications using Argo CD CLI](https://foxutech.com/manage-argo-cd-repositories-and-applications-using-argo-cd-cli/)
+## Argo CD Projects and Examples
+- [Argo CD Projects and Examples](https://foxutech.com/argo-cd-projects-and-examples/)
+## Argo CD Tracking Strategies
+- [Argo CD Tracking Strategies](https://foxutech.com/argo-cd-tracking-strategies/)
