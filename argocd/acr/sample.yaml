@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: acrapp-manifest
+spec:
+  containers:
+    - name: nginx
+      image: foxutech.azurecr.io/nginx
+      imagePullPolicy: Always
+  imagePullSecrets:
+    - name: acr-secret-k8s
