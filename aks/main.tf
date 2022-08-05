@@ -60,3 +60,21 @@ resource "azurerm_kubernetes_cluster" "ak8s" {
     Environment = "Staging"
   }
 }
+
+resource "azurerm_container_registry" "acr" {
+  name                = "foxutech"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  sku                 = "Standard"
+  admin_enabled       = true
+
+  tags = {
+    environment = Staging
+  }
+}
+
+resource "azurerm_role_assignment" "aks-to-acr" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_kubernetes_cluster.kubweb.kubelet_identity[0].object_id
+}
