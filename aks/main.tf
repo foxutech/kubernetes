@@ -69,12 +69,12 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
 
   tags = {
-    environment = Staging
+    environment = "Staging"
   }
 }
 
 resource "azurerm_role_assignment" "aks-to-acr" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "AcrPull"
-  principal_id         = azurerm_kubernetes_cluster.kubweb.kubelet_identity[0].object_id
+  principal_id         = azurerm_kubernetes_cluster.ak8s.kubelet_identity[0].object_id
 }
