@@ -1,17 +1,18 @@
 #!/bin/bash -e
 
-TIME=$(date '+%d-%m-%Y-%H-%M')
+TIME=$(date +%F)
 BACKUP_SCRIPT=$0
 BACKUP_ACTION=export
 BACKUP_LOCATION=azure
+ARGOCD_NAMESPACE=${NAMESPACE}
 BACKUP_FILENAME=argocd-backup-$TIME.yaml
 BACKUP_EXPORT_LOCATION=/tmp/${BACKUP_FILENAME}
 BACKUP_ENCRYPT_LOCATION=/backup/${BACKUP_FILENAME}
 SECRETS_PATH=/secrets
 BACKUP_KEY_LOCATION=${SECRETS_PATH}/backup.key
-STORAGE_ACCOUNT_NAME=foxutechacistorage
-BLOB_CONTAINER_NAME=argocd
-SAS_TOKEN="KEEP YOUR SAS TOKEN HERE"
+AZURE_STORAGE_ACCOUNT_NAME=${STORAGE_ACCOUNT_NAME}
+AZURE_BLOB_CONTAINER_NAME=${BLOB_CONTAINER_NAME}
+AZURE_SAS_TOKEN=${SAS_TOKEN}
 
 export_argocd () {
     echo "exporting argo-cd"
@@ -24,12 +25,16 @@ export_argocd () {
 
 create_backup () {
     echo "creating argo-cd backup"
-    argocd -n argocd admin export > ${BACKUP_EXPORT_LOCATION}
+    echo $NAMESPACE
+    argocd -n $NAMESPACE admin export > ${BACKUP_EXPORT_LOCATION}
+    ls -lrt ${BACKUP_EXPORT_LOCATION}
 }
 
 encrypt_backup () {
     echo "encrypting argo-cd backup"
-    openssl enc -aes-256-cbc -salt -pass file:${BACKUP_KEY_LOCATION} -in ${BACKUP_EXPORT_LOCATION} -out ${BACKUP_ENCRYPT_LOCATION}
+    openssl version
+    /usr/local/openssl/bin/openssl enc -aes-256-cbc -salt -pass file:${BACKUP_KEY_LOCATION} -in ${BACKUP_EXPORT_LOCATION} -out ${BACKUP_ENCRYPT_LOCATION}
+    ls -lrt ${BACKUP_ENCRYPT_LOCATION}
     rm ${BACKUP_EXPORT_LOCATION}
 }
 
@@ -51,7 +56,10 @@ push_backup () {
 
 push_azure () {
     echo "pushing argo-cd backup to azure"
-    azcopy cp ${BACKUP_ENCRYPT_LOCATION} 'https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${BLOB_CONTAINER_NAME}/${SAS_TOKEN}' --recursive=true
+    echo "https://$AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/${AZURE_BLOB_CONTAINER_NAME}/$ARGOCD_NAMESPACE/$BACKUP_FILENAME?$AZURE_SAS_TOKEN"
+    BLOB_PATH="https://${AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${AZURE_BLOB_CONTAINER_NAME}/$ARGOCD_NAMESPACE/?${AZURE_SAS_TOKEN}"
+    echo $BLOB_PATH
+    azcopy copy ${BACKUP_ENCRYPT_LOCATION} ${BLOB_PATH} --recursive=true
 }
 
 usage () {

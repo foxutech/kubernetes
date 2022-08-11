@@ -1,18 +1,35 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: argocd-backup-export
-  namespace: argocd
+  name: argocd-backup-export-foxutech
 spec:
-  schedule: "* */1 * * *"
+  schedule: "*/1 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
           - name: argocd-export
-            image: motoskia/argocdutil
-            imagePullPolicy: IfNotPresent
+            image: motoskia/argocd-export:v1.5
+            imagePullPolicy: Always
+            envFrom:
+              - secretRef:
+                  name: backup-storage-secret
+            env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STORAGE_ACCOUNT_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: argocd-backup-config
+                  key: STORAGE_ACCOUNT_NAME
+            - name: BLOB_CONTAINER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: argocd-backup-config
+                  key: BLOB_CONTAINER_NAME
           restartPolicy: OnFailure
           serviceAccount: argocd-server
           serviceAccountName: argocd-server

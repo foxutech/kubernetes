@@ -1,17 +1,17 @@
 #!/bin/bash -e
 
-TIME=$(date '+%d-%m-%Y-09-52')
 BACKUP_SCRIPT=$0
 BACKUP_ACTION=import
 BACKUP_LOCATION=azure
-BACKUP_FILENAME=argocd-backup-$TIME.yaml
+BACKUP_FILENAME=$1
 BACKUP_EXPORT_LOCATION=/restore/${BACKUP_FILENAME}
 RESTORE_ENCRYPT_LOCATION=/tmp/${BACKUP_FILENAME}
+ARGOCD_NAMESPACE=${NAMESPACE}
 SECRETS_PATH=/secrets
 BACKUP_KEY_LOCATION=${SECRETS_PATH}/backup.key
-STORAGE_ACCOUNT_NAME=foxutechacistorage
-BLOB_CONTAINER_NAME=argocd
-SAS_TOKEN="KEEP YOUR SAS TOKEN HERE"
+AZURE_STORAGE_ACCOUNT_NAME=${STORAGE_ACCOUNT_NAME}
+AZURE_BLOB_CONTAINER_NAME=${BLOB_CONTAINER_NAME}
+AZURE_SAS_TOKEN=$(SAS_TOKEN)
 
 import_argocd () {
     echo "importing argo-cd"
@@ -42,7 +42,7 @@ pull_azure () {
     echo "pulling argo-cd backup from azure"
     BACKUPFILE=${BACKUP_FILENAME}
     echo $BACKUPFILE
-    BLOB_PATH="https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${BLOB_CONTAINER_NAME}/${BACKUPFILE}?${SAS_TOKEN}"
+    BLOB_PATH="https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${BLOB_CONTAINER_NAME}/${NAMESPACE}/${BACKUPFILE}?${SAS_TOKEN}"
     echo $BLOB_PATH
     /usr/local/bin/azcopy cp $BLOB_PATH ${RESTORE_ENCRYPT_LOCATION} --recursive=true
 }
@@ -54,7 +54,7 @@ decrypt_backup () {
 
 load_backup () {
     echo "loading argo-cd backup"
-    argocd admin -n argocd import - < ${BACKUP_EXPORT_LOCATION}
+    argocd admin -n ${ARGOCD_NAMESPACE} import - < ${BACKUP_EXPORT_LOCATION}
 }
 
 usage () {

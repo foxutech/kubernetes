@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: argocd-backup-config
+data:
+  STORAGE_ACCOUNT_NAME: foxutechacistorage
+  BLOB_CONTAINER_NAME: argocd
