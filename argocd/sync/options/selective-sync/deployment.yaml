@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: selective
 spec:
-  replicas: 3
+  replicas: 2
   revisionHistoryLimit: 3
   selector:
     matchLabels:
@@ -14,7 +14,7 @@ spec:
         app: selective
     spec:
       containers:
-        - image: nginx:1.7.9
+      - image: nginx:1.7.9
         name: selective
         ports:
         - containerPort: 80
