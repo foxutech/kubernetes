@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+  name: no-prune
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: no-prune
+  template:
+    metadata:
+      labels:
+        app: no-prune
+    spec:
+      containers:
+      - image: nginx:1.7.9
+        name: no-prune
+        ports:
+        - containerPort: 80
