@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
+  name: replace
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: replace
+  template:
+    metadata:
+      labels:
+        app: replace
+    spec:
+      containers:
+      - image: nginx:1.7.9
+        name: replace
+        ports:
+        - containerPort: 80

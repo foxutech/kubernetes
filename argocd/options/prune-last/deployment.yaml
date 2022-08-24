@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: PruneLast=true
+  name: prune-last
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: prune-last
+  template:
+    metadata:
+      labels:
+        app: prune-last
+    spec:
+      containers:
+      - image: nginx:1.7.9
+        name: prune-last
+        ports:
+        - containerPort: 80

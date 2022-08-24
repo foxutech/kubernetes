@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: no-prune
+spec:
+  destination:
+    namespace: no-prune
+    server: "https://kubernetes.default.svc"
+  project: default
+  source: 
+    path: argocd/sync/options/no-prune/
+    repoURL: "https://github.com/foxutech/kubernetes.git"
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

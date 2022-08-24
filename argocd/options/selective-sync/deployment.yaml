@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selective
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: selective
+  template:
+    metadata:
+      labels:
+        app: selective
+    spec:
+      containers:
+      - image: nginx:1.7.9
+        name: selective
+        ports:
+        - containerPort: 80

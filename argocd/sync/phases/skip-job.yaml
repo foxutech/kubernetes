@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: skipping
+  annotations:
+    argocd.argoproj.io/hook: Skip
+spec:
+  template:
+    spec:
+      containers:
+      - name: sleep
+        image: alpine:latest
+        command: ["sleep", "20"]
+      restartPolicy: Never
+  backoffLimit: 0
