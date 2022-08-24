@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: self-heal
+spec:
+  destination:
+    namespace: self-heal
+    server: "https://kubernetes.default.svc"
+  project: default
+  source: 
+    path: sample
+    repoURL: "https://github.com/foxutech/kubernetes.git"
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
