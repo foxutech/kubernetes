@@ -86,7 +86,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       tier: frontend
