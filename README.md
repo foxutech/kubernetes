@@ -1,4 +1,4 @@
-# kubernetes
+# Kubernetes
 Complete Kubernetes templates and manifests 
 ## AKS creation using Terraform
 - [AKS creation using Terraform](https://foxutech.com/how-to-create-azure-kubernetes-service-using-terraform/)
