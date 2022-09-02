@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver
+  namespace: default
+spec:
+  containers:
+  - image: motoskia/crashing-web-server
+    imagePullPolicy: IfNotPresent
+    name: webserver

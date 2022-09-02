@@ -1,0 +1,12 @@
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: fox-app-svc 
+spec: 
+  type: LoadBalancer
+  selector: 
+    app: fox-app
+  ports: 
+  - protocol: TCP 
+    port: 80 
+    targetPort: 80 
