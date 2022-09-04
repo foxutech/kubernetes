@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fox-backend
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fox-backend
+  template:
+    metadata:
+      labels:
+        app: fox-backend
+    spec:
+      nodeSelector:
+        special-foxutech-network: "true"
+      containers:
+      - name: nginx
+        image: nginx:1.19.1
+        ports:
+        - containerPort: 80

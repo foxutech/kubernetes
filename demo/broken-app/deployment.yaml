@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  name: alpha-app
+  namespace: alpha
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: alpha-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: alpha-app
+    spec:
+      containers:
+      - command:
+        - sh
+        - -c
+        - while true; do curl beta-app; sleep 5; done
+        image: radial/busyboxplus:curl
+        imagePullPolicy: IfNotPresent
+        name: busybox

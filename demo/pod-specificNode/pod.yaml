@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fox-pod
+  namespace: default
+spec:
+  nodeSelector:
+    special-foxutech-network: "true"
+  containers:
+  - name: nginx
+    image: nginx:1.19.1
+    ports:
+    - containerPort: 80

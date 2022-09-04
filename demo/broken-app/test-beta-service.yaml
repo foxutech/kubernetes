@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: beta-app
+  namespace: beta
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: beta-app
+  type: ClusterIP
