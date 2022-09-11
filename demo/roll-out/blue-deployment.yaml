@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testing-app-blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testing-app
+      color: blue
+  template:
+    metadata:
+      labels:
+        app: testing-app
+        color: blue
+    spec:
+      containers:
+      - name: nginx
+        image: motoskia/nginx:blue
+        ports:
+        - containerPort: 80
