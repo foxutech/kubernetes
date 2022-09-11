@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tech-init-web
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.19.1
+  initContainers:
+  - name: tech-init-svc-check
+    image: busybox:1.27
+    command: ['sh', '-c', 'until nslookup tech-init-svc; do echo waiting for tech-init-svc; sleep 2; done']
