@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tech-init-svc
+spec:
+  selector:
+    app: tech-init-svc
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tech-init-backend
+  labels:
+   app: tech-init-svc
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.19.1
