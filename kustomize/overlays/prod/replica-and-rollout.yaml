@@ -9,3 +9,20 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
     type: RollingUpdate
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kustom-demo-app
+spec:
+  template:
+    spec:
+      containers:
+      - name: app
+        env:
+        - name: "DB_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: kustom-demo-app
+              key: db.password
