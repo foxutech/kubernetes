@@ -1,18 +1,1 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: testing
-  namespace: argocd
-spec:
-  destination:
-    namespace: dev
-    server: https://kubernetes.default.svc
-  project: default
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        one: two
-      annotations:
-        abc: xyz
-    syncOptions:
-    - CreateNamespace=true
+
