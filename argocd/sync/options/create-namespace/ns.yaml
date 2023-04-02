@@ -4,3 +4,6 @@ metadata:
   name: dev
   labels:
     argocd.argoproj.io/managed-by: foxutech
+    one: three
+  annotations:
+    abc: efg
