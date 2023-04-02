@@ -8,6 +8,12 @@ spec:
     namespace: test
     server: https://kubernetes.default.svc
   project: default
+  source: 
+    path: argocd/sync/options/create-namespace
+    repoURL: "https://github.com/foxutech/kubernetes.git"
+    targetRevision: HEAD
+    directory:
+      recurse: true
   syncPolicy:
     managedNamespaceMetadata:
       labels:
